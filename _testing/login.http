@@ -1,0 +1,7 @@
+POST http://localhost:3500/login/
+content-type: application/json
+
+{
+    "email": "roxana@benleedsproperties.com",
+    "password": "123"
+}

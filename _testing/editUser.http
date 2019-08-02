@@ -1,0 +1,10 @@
+POST http://localhost:3000/admin/editUser/5cee78500d7d35067041b261
+content-type: application/json
+
+{
+    "email": "johndoe@gmail.com",
+    "emailPassword": "newpass",
+    "firstName": "John",
+    "lastName": "Doe",
+    "region": "LA Valley"
+}

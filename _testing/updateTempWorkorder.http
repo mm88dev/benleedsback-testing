@@ -1,0 +1,25 @@
+POST http://localhost:3500/user/tempWorkorder
+content-type : application/json
+
+{
+    "_id": "5d271ef11ae57316687d6fd4",
+    "autosaveTime": "2019-07-03T19:43:26.413+00:00",
+    "jobs": [
+        {
+            "name": "Ceiling fan light glass cover (Parts + 10% + $3.00) (Parts + 10% + $3....",
+            "subCategory": "Ceiling",
+            "room": "Entrance",
+            "price": " $ -   ",
+            "quantity": 5,
+            "comment": "updated comment about a job"
+        },
+        {
+            "name": "Seal gaps inside the wall cabinet",
+            "subCategory": "Cabinet",
+            "room": "Living Room",
+            "price": " $ 10.00",
+            "quantity": 15,
+            "comment": "ok ok ,  comment about a 2nd job"
+        }        
+    ]
+}

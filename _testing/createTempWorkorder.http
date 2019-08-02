@@ -1,0 +1,37 @@
+POST http://localhost:3500/user/newTempWorkorder
+content-type : application/json
+
+{
+    "buildingNumber": "666",
+    "apartmentNumber": "23",
+    "loginTime": "2019-07-03T19:43:26.413+00:00",
+    "autosaveTime": "2019-07-03T19:43:26.413+00:00",
+    "userId": "5d010ff66d43b33990459b01",
+    "_id": "5d2897fc9e16d62b389a8f7c",
+    "jobs": [
+        {
+            "name": "Ceiling fan light glass cover (Parts + 10% + $3.00) (Parts + 10% + $3.00)",
+            "subCategory": "Ceiling",
+            "room": "Entrance",
+            "price": " $ -   ",
+            "quantity": 5,
+            "comment": "comment about a jobbbbbbb"
+        },
+        {
+            "name": "Decora plate",
+            "subCategory": "Electric",
+            "room": "Living Room",
+            "price": " $ 2.00 ",
+            "quantity": 15,
+            "comment": "comment about a 2nd job"
+        },
+        {
+            "name": "Remove chain from main entrance door and frame",
+            "subCategory": "Lock",
+            "room": "Living Room",
+            "price": " $ 5.00 ",
+            "quantity": 3,
+            "comment": "comment about a 3nd job"            
+        }        
+    ]
+}
