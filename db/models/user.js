@@ -196,19 +196,25 @@ module.exports.deleteUser = function(_id, res, callback) {
 };
 
 // admin edits existing user
-module.exports.editUser = function(user, res, callback) {
+module.exports.editUser = function(updatedUser, res, callback) {
 
+  let editedUser;
+  if (updatedUser.imgPath !== null) {
+    editedUser = updatedUser;
+  } else {
+    editedUser = {
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      emailPassword: updatedUser.emailPassword,
+      region: updatedUser.region,
+      status: updatedUser.status,
+    };
+  }
   User.findByIdAndUpdate(
-    user._id,
+    editedUser._id,
     {
-      $set: {
-        name: user.name,
-        email: user.email,
-        emailPassword: user.emailPassword,
-        region: user.region,
-        status: user.status,
-        imgPath: imgPath
-      }
+      $set: editedUser
     },
     {
       new: true
@@ -226,6 +232,7 @@ module.exports.editUser = function(user, res, callback) {
         error: "An error occured while updating a user"
       };
     }
+    console.log(user);
     data = JSON.stringify(data);
     callback(res, data);
   })

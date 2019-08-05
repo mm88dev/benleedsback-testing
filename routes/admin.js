@@ -207,7 +207,7 @@ exports.editVendor = function(req, res) {
 exports.editUser = function(req, res) {
 
     const editedUser = {
-        _id: req.params.id,
+        _id: req.body._id,
         name: req.body.name,
         email: req.body.email,
         emailPassword: req.body.emailPassword,
@@ -215,16 +215,14 @@ exports.editUser = function(req, res) {
         status: req.body.status
     };
     let imgPath;
-    if (req.file.originalname !== "") {
+    if (req.file !== undefined) {
         imgPath = process.env.IMG_PATH + Date.now() + "-" + req.file.originalname;
     } else {
-        imgPath = process.env.IMG_PATH + "noImg.jpg"
+        imgPath = null;
     }
     editedUser.imgPath = imgPath;
-    console.log(editedUser);
-    res.end();
-    // const User = require("../db/models/user");
-    // User.editUser(editedUser, res, callback);
+    const User = require("../db/models/user");
+    User.editUser(editedUser, res, callback);
 }; 
 exports.editItem = function(req, res) {
 
