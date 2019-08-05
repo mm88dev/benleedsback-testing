@@ -1,13 +1,15 @@
 "use strict";
-
 const nodemailer = require("nodemailer"); 
 require('dotenv').config();
 
-exports.userSendMail = function(data) {
-    // sender email config
+
+// regional sends mail to admin and him/herself
+exports.userSendMail = function(data, res, cb) {
+    
     const email = data.user.email;
     const emailPassword = data.user.emailPassword;
     const emailHost = "mail." + email.split("@")[1];
+    // email transport config
     const transporter = nodemailer.createTransport({
         host:  emailHost,
         secure: true,
@@ -35,29 +37,50 @@ exports.userSendMail = function(data) {
         subject: subject,
         html: content
     };
-    // finally send mail
+    let responseData;
+    // trigger mail sending
     transporter.sendMail(mailOptions, function(err, info) {
 
         if (err) {
+            responseData = {
+                error: "An error has occured while attempting to send an email from regional to admin"
+            };
+            responseData = JSON.stringify(responseData);
+            cb(res, responseData); 
             console.log("An error occurred : " + err);
             transporter.close();
-        }
-        if (info) {
-            
+        } else {
+            // mail contents
             const subject2 = "You have submitted a new workorder for building : " + data.workorder.buildingNumber 
                             + " at address " + data.workorder.address;
+            const content2 = "<div style='margin-bottom: 12px;'> Building Number : " + data.workorder.buildingNumber + "</div>" +
+                            "<div style='margin-bottom: 12px;'> Apartment Number : " + data.workorder.apartmentNumber + "</div>" +
+                            "<div style='margin-bottom: 12px;'> Login Time : " + data.workorder.loginTime.toString() + "</div>" +
+                            "<div style='margin-bottom: 12px;'> Completed Time : " + data.workorder.completedTime.toString() + "</div>" +
+                            "<div style='margin-bottom: 12px;'> Send Time : " + data.workorder.sendTime.toString() + "</div>" +
+                            "<div style='margin-bottom: 12px;'> Regional Manager : " + data.user.name + "/<div>";                
             const mailOptions2 = {
                 from: email,
                 to: email,
                 subject: subject2,
-                html: content
+                html: content2
             };            
+            // trigger mail sending
             transporter.sendMail(mailOptions2, function(err, info) {
 
                 if (err) {
+                    responseData = {
+                        error: "An error has occured while attempting to send an email from regional to admin"
+                    };
+                    responseData = JSON.stringify(responseData);
+                    cb(res, responseData); 
                     console.log("An eror occurred : " + err);
-                } 
-                if (info) {
+                } else {
+                    responseData = {
+                        success: "ok"
+                    };
+                    responseData = JSON.stringify(responseData);
+                    cb(res, responseData);
                     console.log("User " + data.user.firstName +  " " + data.user.lastName + " has submitted a workorder.");
                 }
                 transporter.close();
@@ -66,13 +89,13 @@ exports.userSendMail = function(data) {
     });
 };
 
+// admin mails vendor after assigning him a job
+exports.adminSendMail = function(data, cb) {
 
-exports.adminSendMail = function(data) {
-
-    // sender email config
     const email = process.env.ADMIN_EMAIL;
     const emailPassword = process.env.ADMIN_EMAIL_PASSWORD;
     const emailHost = process.env.ADMIN_EMAIL_HOST;
+    // email transport config
     const transporter = nodemailer.createTransport({
         host: emailHost,
         port: 465,
@@ -100,15 +123,20 @@ exports.adminSendMail = function(data) {
         subject: subject,
         html: content
     };
-    // finally send mail
+    let responseData;
+    // trigger mail sending
     transporter.sendMail(mailOptions, function(err, info) {
 
         if (err) {
+            responseData = {
+                error: "An error has occured while attempting to send email from admin to vendor"
+            }
             console.log("An error occurred : " + err);
-        }
-        if (info) {
+        } else {
+            responseData = data;
             console.log("Everything is ok : " + info);
-            transporter.close();
         }
+        cb(responseData);
+        transporter.close();
     });
 };

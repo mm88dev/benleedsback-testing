@@ -67,16 +67,28 @@ exports.createWorkorder = function (req, res) {
     }
 
     function removeTempWorkorder(data) {
-
+        
         if (data.error === undefined) {
             const TempWorkorder = require("../db/models/tempWorkorder");
             // third callback
-            TempWorkorder.deleteTempWorkorder(data, res, callback);
+            TempWorkorder.deleteTempWorkorder(data, mailAdmin);
         } else {
             data = JSON.stringify(data);
             callback(res, data);
         }
     }
+
+    function mailAdmin(data) {
+
+        if (data.error === undefined) {
+            const MailTask = require("../tasks/mail");
+            // fourth callback
+            MailTask.userSendMail(data, res, callback); 
+        } else {
+            data = JSON.stringify(data); 
+            callback(res, data);
+        }
+    } 
 };
 
 // user autosaves the workorder

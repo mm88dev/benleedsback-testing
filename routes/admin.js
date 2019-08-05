@@ -252,13 +252,25 @@ exports.assignJob = function(req, res) {
         if (data.error === undefined) {
             const Vendor = require("../db/models/vendor");
             // second callback
-            Vendor.assignVendor(data, editWorkorder);
+            Vendor.assignVendor(data, mailVendor);
         } else {
             data = JSON.stringify(data);
             callback(res, data);
         }
     }
-    
+
+    function mailVendor(data) {
+
+        if (data.error === undefined) {
+            const MailTask = require("../tasks/mail");
+            // third callback
+            MailTask.adminSendMail(data, editWorkorder);
+        } else {
+            data  = JSON.stringify(data);
+            callback(res, data);
+        }
+    }
+
     function editWorkorder(data) {
    
         if (data.error === undefined) {

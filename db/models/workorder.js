@@ -233,13 +233,7 @@ module.exports.editWorkorder = function (jobData, res, callback) {
             };
         }
         data = JSON.stringify(data);
-        callback(res, data);
-        // send email to vendor with job details and date he's been assigned to
-        const MailTask = require("../../tasks/mail");
-        MailTask.adminSendMail(jobData);
-        // send sms to vendor 
-        const SmsTask = require("../../tasks/sms");
-        SmsTask.sendSMS(jobData);        
+        callback(res, data);    
     })
     .catch(err => {
 

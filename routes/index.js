@@ -8,6 +8,7 @@ function callback(res, data) {
 }
 // send file in response
 function fileCallback(res, dataPath) {
+
   const mimeTypes = {
     jpg: "image/jpeg",
     jpeg: "image/jpeg",
@@ -19,12 +20,11 @@ function fileCallback(res, dataPath) {
   const file = __dirname.replace("/routes", "") + dataPath;
   const readStream = fs.createReadStream(file);
   readStream.on("open", () => {
-    console.log("ok");
+
     res.set("Content-Type", contentType);
     readStream.pipe(res);
   });
   readStream.on("error", () => {
-    console.log("error");
 
     let data = {
       error: "An error has occurred"
@@ -41,7 +41,7 @@ exports.getOperationalData = function(req, res) {
 };
 // login admin/user function
 exports.login = function(req, res) {
-  console.log(req.body);
+  
   const email = req.body.email;
   const password = req.body.password;
   if (email === process.env.ADMIN_EMAIL) {
@@ -63,6 +63,7 @@ exports.login = function(req, res) {
   }
 
   function getUserWorkorders(data) {
+
     if (data.error === undefined) {
       const Workoder = require("../db/models/workorder");
       // second callback
@@ -74,6 +75,7 @@ exports.login = function(req, res) {
   }
 
   function getWorkorderJobs(data) {
+
     if (data.error === undefined) {
       const Jobs = require("../db/models/job");
       // third callback
@@ -85,6 +87,7 @@ exports.login = function(req, res) {
   }
 
   function getUserTempWorkorders(data) {
+
     if (data.error === undefined) {
       // fourth callback
       const tempWorkorder = require("../db/models/tempWorkorder");
@@ -98,6 +101,7 @@ exports.login = function(req, res) {
 
 // get user photo
 exports.userPhoto = function(req, res) {
+
   const userId = req.params.userId;
   const User = require("../db/models/user");
   User.getPhoto(userId, res, callback, fileCallback);

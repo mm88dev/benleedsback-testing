@@ -185,7 +185,6 @@ module.exports.assignVendor = function(jobData, callback) {
                 error: "An error occured while updating a vendor"
             };
         }
-        // send data further along
         callback(data);
     })
     .catch(err => {

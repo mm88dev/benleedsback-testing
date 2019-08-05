@@ -2,7 +2,7 @@
 // enviorenment variables
 require('dotenv').config();
 // dependencies
-const http = require('http');
+const cors = require("cors");
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
@@ -49,20 +49,9 @@ app.use(express.urlencoded({ extended: false }));
 //     next();
 //   }
 // });
-// allow cross-origin requests
-app.use((req, res, next) => {
+// allow requests from cross-origin servers
+app.use(cors());
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
-  );
-  next();
- });
 
 
 
@@ -119,6 +108,7 @@ app.post("/admin/finishJob/:id", require("./routes/admin").finishJob);
 app.post("/admin/vendors/:id", require("./routes/admin").deleteVendor);
 app.post("/admin/users/:id", require("./routes/admin").deleteUser);
 app.post("/admin/deleteItem", require("./routes/admin").deleteItem);
+
 
 
 

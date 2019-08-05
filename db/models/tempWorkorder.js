@@ -122,26 +122,20 @@ module.exports.getTempWorkorder = function (autosavedWorkorder, callback) {
 };
 
 // a temporary workorder is deleted once the real one is created
-module.exports.deleteTempWorkorder = function(workorderData, res, callback) {
+module.exports.deleteTempWorkorder = function(workorderData, callback) {
 
     tempWorkorder.findByIdAndRemove(workorderData.tempWorkorderId)
     .then(tempWorkorder => {
 
         let data;
         if (tempWorkorder !== null) {
-            data = {
-                success: "ok"
-            };
+            data = workorderData;
         } else {
             data = {
                 error: "An error occurred while removing a temporary workorder"
             }
         }
-        data = JSON.stringify(data);
-        callback(res, data);
-        // send email with workorder && user data to admin
-        const MailTask = require("../../tasks/mail");
-        MailTask.userSendMail(workorderData);
+        callback(data);
     })
     .catch(err => {
 
