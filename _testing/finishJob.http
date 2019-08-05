@@ -1,0 +1,6 @@
+POST http://localhost:3500/admin/finishJob/5d0d0a2638c882186c96d11d
+content-type: application/json
+
+{
+    "status": "finished"
+}

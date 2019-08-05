@@ -1,0 +1,34 @@
+POST http://localhost:3500/admin/assignJob/5cebd0661c9d440000fe87b1
+content-type: application/json
+
+{
+    "job" : {
+        "_id": "5d1cf30568de472f3cad01e2",
+        "checked": false,
+        "status": "pending",
+        "endDate": "",
+        "name": "Broken Window",
+        "subCategory": "Windows",
+        "room": "Hallway1",
+        "price": 12,
+        "quantity": 100,
+        "comment": "Comment about Window in Hallway",
+        "workorderId": "5d1cc18e7cbd523844db912a",
+        "vendorId": "5d0fd6ff28963f28d0a792a2",
+        "assignmentDate": ""
+    },
+    "vendor": {
+        "id": "5d0fd6ff28963f28d0a792a2",
+        "name": "Jeremias",
+        "email": "jeremiasrodrigues@gmail.com",
+        "profession": "Painters",
+        "phone": "+381692010414"
+    },
+    "workorder": {
+        "id": "5d1ce8cd8b50382d784ed0c5",
+        "status": "sent",
+        "adress": "wtf"
+    }
+}
+
+

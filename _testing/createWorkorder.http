@@ -1,0 +1,42 @@
+POST http://localhost:3500/user/newWorkorder/
+content-type : application/json
+
+{
+    "workorder": {
+        "_id": "5d1d06d96d5d5c05bf712aa2",
+        "status": "saved",
+        "loginTime": "2019-07-03T19:43:26.413+00:00",
+        "completedTime": "2019-07-03T19:49:45.106+00:00",
+        "apartmentNumber": 1213,
+        "sendTime": "2019-07-03T19:49:45.106+00:00",
+        "userId": "5d010ff66d43b33990459b01",
+        "buildingNumber": 8,
+        "adress": "11345 Elderwood Ave. (90049)",
+        "totalPrice": 0,
+        "comment" :"Saved"
+    },
+    "jobs" : [
+        {
+            "name": "Tv repair",
+            "subCategory": "Tv",
+            "room": "LivingRoom",
+            "price": 23,
+            "quantity": 200,
+            "comment": "Comment about TV"
+        },
+        {
+            "name": "Broken Window",
+            "subCategory": "Windows",
+            "room": "Hallway1",
+            "price": 12,
+            "quantity": 100,
+            "comment": "Comment about Window in Hallway"
+        }
+    ],
+    "user" : {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "mladenj@skydream.info",
+        "emailPassword": "P0slednjiKr0jac"
+    }
+}

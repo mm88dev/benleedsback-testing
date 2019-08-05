@@ -1,0 +1,8 @@
+POST http://localhost:3500/user/getTempWorkorder
+Content-Type: application/json
+
+{
+    "buildingNumber": "666",
+    "apartmentNumber": "23",
+    "userId": "5d010ff66d43b33990459b01"
+}

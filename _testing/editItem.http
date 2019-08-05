@@ -1,0 +1,9 @@
+POST http://localhost:3000/admin/editItem/5ced0c4b1c9d44000016e53c
+content-type: application/json
+
+{
+    "name": "Electric Bulb",
+    "subCategory" :"Electric",
+    "room": "LivingRoom",
+    "price": "8.99"
+}

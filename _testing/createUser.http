@@ -1,0 +1,10 @@
+POST http://localhost:3500/admin/newUser/
+content-type: application/json
+
+{
+    "name": "new user",
+    "password": "11",
+    "emailPassword": "whatevs",
+    "email": "kawhi@gmail.com",
+    "region": "Malibu"
+}
