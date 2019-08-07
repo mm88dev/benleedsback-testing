@@ -16,15 +16,27 @@ const app = express();
 
 // multer
 const multer = require('multer');
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+};
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    const imgDestination = '.' + process.env.IMG_PATH;
-    cb(null, imgDestination);
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid mime type');
+    if (isValid) {
+      error = null;
+    }
+    cb(error, '../data/api/img');
   },
   filename: function(req, file, cb) {
-    const originalName = file.originalname.replace('.', '');
-    const imgName = Date.now() + '-' + originalName;
-    cb(null, imgName);
+    const name = file.originalname
+      .toLowerCase()
+      .split(' ')
+      .join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
   }
 });
 const upload = multer({
