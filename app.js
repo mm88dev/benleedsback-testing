@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
       .split(' ')
       .join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
-    cb(null, name + '-' + Date.now() + '.' + ext);
+    cb(null, Date.now() + '-' + name);
   }
 });
 const upload = multer({

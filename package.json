@@ -6,8 +6,8 @@
   },
   "private": true,
   "scripts": {
-    "start": "node www",
-    "nodemon": "nodemon www"
+    "start": "node ./bin/www",
+    "nodemon": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
