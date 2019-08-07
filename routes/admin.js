@@ -131,15 +131,13 @@ exports.createUser = function(req, res) {
     region: req.body.region
   };
   if (req.file !== undefined) {
-    const name = req.file.originalname
-      .toLowerCase()
-      .split(' ')
-      .join('-');
-    const imgPath = Date.now() + '-' + name;
-    createdUser.imgPath = imgPath;
+    const url = req.protocol + '://' + req.get('host');
+
+    createdUser.imgPath = url + '/data/api/img/' + req.file.filename;
   } else {
+    const url = req.protocol + '://' + req.get('host');
     const imgPath = 'noImg.jpg';
-    createdUser.imgPath = imgPath;
+    createdUser.imgPath = url + '/data/api/img/' + imgPath;
   }
   const User = require('../db/models/user');
   User.createUser(createdUser, res, callback);
