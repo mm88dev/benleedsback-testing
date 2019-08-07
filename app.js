@@ -7,7 +7,6 @@ const createError = require('http-errors');
 const path = require('path');
 const express = require('express');
 const logger = require('morgan');
-const multer = require('multer');
 // db connection
 require('./db/connection');
 // express
@@ -16,9 +15,10 @@ const app = express();
 // MIDDLEWARES
 
 // multer
+const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    const imgDestination = '../data/api/img';
+    const imgDestination = '.' + process.env.IMG_PATH;
     cb(null, imgDestination);
   },
   filename: function(req, file, cb) {
