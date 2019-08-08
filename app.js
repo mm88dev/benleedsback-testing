@@ -11,7 +11,6 @@ const logger = require('morgan');
 require('./db/connection');
 // express
 const app = express();
-app.use(cors());
 // MIDDLEWARES
 
 // multer
@@ -33,9 +32,9 @@ const storage = multer.diskStorage({
   },
   filename: function(req, file, cb) {
     const name = file.originalname
-      .toLowerCase()
-      .split(' ')
-      .join('-');
+    .toLowerCase()
+    .split(' ')
+    .join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, Date.now() + '-' + name);
   }
@@ -46,12 +45,13 @@ const upload = multer({
 // logger
 app.use(logger('dev'));
 // body-parser
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/data/api/img', express.static(path.join('data/api/img')));
 // validate front-end data before reaching the endpoint
 // app.use((req, res, next) => {
-
+  
 //   const errors = require("./middlewares/validation").validateFrontData(req);
 //   console.log(errors);
 //   if (errors) {
