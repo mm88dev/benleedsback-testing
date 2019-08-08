@@ -11,7 +11,7 @@ const logger = require('morgan');
 require('./db/connection');
 // express
 const app = express();
-
+app.use(cors());
 // MIDDLEWARES
 
 // multer
@@ -22,9 +22,7 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 };
 const storage = multer.diskStorage({
-
   destination: function(req, file, cb) {
-
     const isValid = MIME_TYPE_MAP[file.mimetype];
     let error = new Error('Invalid mime type');
     if (isValid) {
@@ -33,11 +31,10 @@ const storage = multer.diskStorage({
     cb(error, 'data/api/img');
   },
   filename: function(req, file, cb) {
-  
     const name = file.originalname
-                .toLowerCase()
-                .split(' ')
-                .join('-');
+      .toLowerCase()
+      .split(' ')
+      .join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, Date.now() + '-' + name);
   }
@@ -63,7 +60,6 @@ app.use('/data/api/img', express.static(path.join('data/api/img')));
 //   }
 // });
 // allow requests from cross-origin servers
-app.use(cors());
 
 // ROUTES
 
