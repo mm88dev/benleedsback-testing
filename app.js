@@ -12,6 +12,7 @@ require('./db/connection');
 // express
 const app = express();
 
+
 // MIDDLEWARES
 
 // multer
@@ -25,7 +26,9 @@ const storage = multer.diskStorage({
 
   destination: function(req, file, cb) {
 
-    const isValid = MIME_TYPE_MAP[file.mimetype];
+    // check if extension be correct
+    req.isValid = MIME_TYPE_MAP[file.mimetype];
+    // ??? send back to front if not correct mime type ??? validation.js later in /routes or /models
     let error = new Error('Invalid mime type');
     if (isValid) {
       error = null;
@@ -77,14 +80,8 @@ app.get('/avatar/:userId', require('./routes/index').userPhoto);
 // user gets one instance of data
 app.get('/user/rooms/:name', require('./routes/user').singleRoom);
 app.get('/user/buildings/:number', require('./routes/user').singleBuilding);
-app.get(
-  '/user/getAllTempWorkorders/:userId',
-  require('./routes/user').getAllTempWorkorders
-);
-app.get(
-  '/user/allUserWorkorders/:userId',
-  require('./routes/user').getAllUserWorkorders
-);
+app.get('/user/getAllTempWorkorders/:userId', require('./routes/user').getAllTempWorkorders);
+app.get('/user/allUserWorkorders/:userId', require('./routes/user').getAllUserWorkorders);
 // user gets entire set of data
 app.get('/user/allItems', require('./routes/user').getAllItems);
 app.get('/user/allWorkorders', require('./routes/user').getAllWorkorders);
@@ -110,20 +107,12 @@ app.get('/admin/users/:id', require('./routes/admin').singleUser);
 app.get('/admin/rooms/:name', require('./routes/admin').singleRoom);
 // admin creates a new instance of vendor/user/item
 app.post('/admin/newVendor', require('./routes/admin').createVendor);
-app.post(
-  '/admin/newUser',
-  upload.single('image'),
-  require('./routes/admin').createUser
-);
+app.post('/admin/newUser', upload.single('image'), require('./routes/admin').createUser);
 app.post('/admin/newItem', require('./routes/admin').createItem);
 // admin edits one instance of data
 app.post('/admin/editWorkorder/:id', require('./routes/admin').editWorkorder);
 app.post('/admin/editVendor/:id', require('./routes/admin').editVendor);
-app.post(
-  '/admin/editUser',
-  upload.single('image'),
-  require('./routes/admin').editUser
-);
+app.post('/admin/editUser', upload.single('image'), require('./routes/admin').editUser);
 app.post('/admin/editItem', require('./routes/admin').editItem);
 // admin assigns job / declares it finished , editing job, vendor and optionally also workorder
 app.post('/admin/assignJob/:id', require('./routes/admin').assignJob);
