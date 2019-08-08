@@ -11,6 +11,7 @@ const logger = require('morgan');
 require('./db/connection');
 // express
 const app = express();
+
 // MIDDLEWARES
 
 // multer
@@ -21,9 +22,10 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 };
 const storage = multer.diskStorage({
+
   destination: function(req, file, cb) {
-    // check if extension be correct
-    req.isValid = MIME_TYPE_MAP[file.mimetype]; //send back to front if not correct mime type validation.js later in /routes or /models
+
+    const isValid = MIME_TYPE_MAP[file.mimetype];
     let error = new Error('Invalid mime type');
     if (isValid) {
       error = null;
@@ -31,10 +33,11 @@ const storage = multer.diskStorage({
     cb(error, 'data/api/img');
   },
   filename: function(req, file, cb) {
+  
     const name = file.originalname
-    .toLowerCase()
-    .split(' ')
-    .join('-');
+                .toLowerCase()
+                .split(' ')
+                .join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, Date.now() + '-' + name);
   }
@@ -45,13 +48,12 @@ const upload = multer({
 // logger
 app.use(logger('dev'));
 // body-parser
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/data/api/img', express.static(path.join('data/api/img')));
 // validate front-end data before reaching the endpoint
 // app.use((req, res, next) => {
-  
+
 //   const errors = require("./middlewares/validation").validateFrontData(req);
 //   console.log(errors);
 //   if (errors) {
@@ -61,6 +63,7 @@ app.use('/data/api/img', express.static(path.join('data/api/img')));
 //   }
 // });
 // allow requests from cross-origin servers
+app.use(cors());
 
 // ROUTES
 
