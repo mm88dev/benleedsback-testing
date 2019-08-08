@@ -195,7 +195,8 @@ exports.editUser = function(req, res) {
   };
   let imgPath;
   if (req.file !== undefined) {
-    imgPath = process.env.IMG_PATH + Date.now() + '-' + req.file.originalname;
+    const url = req.protocol + '://' + req.get('host');
+    imgPath = url + '/data/api/img/' + req.file.filename;
   } else {
     imgPath = null;
   }
