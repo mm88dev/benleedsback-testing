@@ -232,17 +232,18 @@ module.exports.editUser = function(updatedUser, res, callback) {
         error: "An error occured while updating a user"
       };
     }
-    console.log(user);
     data = JSON.stringify(data);
     callback(res, data);
   })
   .catch(err => {
+
     console.log("An error occured while updating a user " + err);
   });
 };
 
 // add relevant user to each workorder send to front
 module.exports.addUserToWorkorder = function(workorders, res, callback) {
+  
   User.find({})
     .then(users => {
       let data;
@@ -268,6 +269,7 @@ module.exports.addUserToWorkorder = function(workorders, res, callback) {
             comment: workorders[i].comment,
             adress: workorders[i].adress,
             totalPrice: workorders[i].totalPrice,
+            level: workorders[i].level,
             user: workorderUser
           });
         }
@@ -284,28 +286,4 @@ module.exports.addUserToWorkorder = function(workorders, res, callback) {
     .catch(err => {
       console.log("An error occured while adding user ");
     });
-};
-
-// send user photo to the frontend
-module.exports.getPhoto = function(userId, res, callback, fileCallback) {
-
-  User.findById(userId)
-  .then(user => {
-    
-    let data;
-    if (user !== null) {
-      const imgPath = user.imgPath;
-      fileCallback(res, imgPath);
-    } else {
-      data = {
-        error: "An error occured while attempting to get a user's photo"
-      };
-      data = JSON.stringify(data);
-      callback(res, data);
-    }
-  })
-  .catch(err => {
-
-    console.log("An error occured while attempting to get a user's photo " + err);
-  });
 };
