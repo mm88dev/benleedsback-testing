@@ -390,9 +390,7 @@ module.exports.editItem = async function (item, res, callback) {
 // user gets items from the jobs of the autosaved workorder
 module.exports.getAutosaveItems = async function (autosavedWorkorder, callback) {
     
-    Item.find({
-        room: autosavedWorkorder.room
-    })
+    Item.find()
     .then(items => {
 
         let data;
