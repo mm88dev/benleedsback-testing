@@ -14,7 +14,8 @@ exports.allWorkorders = function(req, res) {
   Workorder.getAllWorkorders(allUsers);
 
   function allUsers(data) {
-  
+    
+    console.log(data);
     if (data.error === undefined) {
       const User = require('../db/models/user');
       // second callback

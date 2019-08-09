@@ -5,7 +5,7 @@ require('dotenv').config();
 mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useFindAndModify: false,
-    dbName: "benLeedsProduction"
+    dbName: "benLeeds"
 });
 const db = mongoose.connection;
 // conenction error
