@@ -16,7 +16,7 @@ exports.userSendMail = function(data, res, cb) {
         port: 465,
         auth: {
             user: email,
-            pass: "23456789"
+            pass: data.user.emailPassword
         },
         tls: {
             rejectUnauthorized: false
