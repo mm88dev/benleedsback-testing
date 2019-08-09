@@ -1,5 +1,6 @@
 "use strict";
 function callback(res, data) {
+
     res.send(data);
 }
 
@@ -79,7 +80,7 @@ exports.createWorkorder = function (req, res) {
     }
 
     function mailAdmin(data) {
-
+        
         if (data.error === undefined) {
             const MailTask = require("../tasks/mail");
             // fourth callback

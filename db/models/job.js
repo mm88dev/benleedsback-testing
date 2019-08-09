@@ -47,6 +47,9 @@ const JobSchema = mongoose.Schema({
     },
     endDate: {
         type: Date
+    },
+    finishDate: {
+        type: Date
     }
 });
 

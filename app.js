@@ -28,7 +28,6 @@ const storage = multer.diskStorage({
 
     // check if extension be correct
     req.isValid = MIME_TYPE_MAP[file.mimetype];
-    // ??? send back to front if not correct mime type ??? validation.js later in /routes or /models
     let error = new Error('Invalid mime type');
     if (isValid) {
       error = null;

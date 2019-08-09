@@ -4,6 +4,7 @@ const fs = require("fs");
 
 // send textual reponse
 function callback(res, data) {
+  
   res.send(data);
 }
 // send file in response

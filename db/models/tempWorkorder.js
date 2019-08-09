@@ -32,6 +32,9 @@ const tempWorkorderSchema = mongoose.Schema({
     adress: {
         type: String,
         required: true
+    },
+    squareFeet: {
+        type: String
     }
 });
 
@@ -113,6 +116,7 @@ module.exports.getTempWorkorder = function (autosavedWorkorder, callback) {
                 error: "An error occured while recovering a temporary workorder"
             };
         }
+        console.log(tempWorkorder);
         callback(data);
     })
     .catch(err => {

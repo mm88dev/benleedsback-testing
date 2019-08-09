@@ -389,12 +389,15 @@ module.exports.editItem = async function (item, res, callback) {
 
 // user gets items from the jobs of the autosaved workorder
 module.exports.getAutosaveItems = async function (autosavedWorkorder, callback) {
-
-    Item.find({})
+    
+    Item.find({
+        room: autosavedWorkorder.room
+    })
     .then(items => {
 
         let data;
         if (items !== null) {
+
             data = {
                 workorder: autosavedWorkorder,
                 items: []
@@ -408,9 +411,12 @@ module.exports.getAutosaveItems = async function (autosavedWorkorder, callback) 
                         foundAt = i;
                     }
                 }
+                // check if 
                 if (foundAt === null) {
+                    // push regular item
                     data.items.push(item);
                 } else {
+                    // push modified item for front end rendering
                     const modifiedItem = {
                          _id: item._id,
                         room: item.room,

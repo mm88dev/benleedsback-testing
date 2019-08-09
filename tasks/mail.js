@@ -16,7 +16,7 @@ exports.userSendMail = function(data, res, cb) {
         port: 465,
         auth: {
             user: email,
-            pass: emailPassword
+            pass: "23456789"
         },
         tls: {
             rejectUnauthorized: false
@@ -47,7 +47,7 @@ exports.userSendMail = function(data, res, cb) {
             };
             responseData = JSON.stringify(responseData);
             cb(res, responseData); 
-            console.log("An error occurred : " + err);
+            console.log("An error1 occurred : ");
             transporter.close();
         } else {
             // mail contents
@@ -74,14 +74,15 @@ exports.userSendMail = function(data, res, cb) {
                     };
                     responseData = JSON.stringify(responseData);
                     cb(res, responseData); 
-                    console.log("An eror occurred : " + err);
+                    console.log("An eror2 occurred");
+                    console.log(err);
                 } else {
                     responseData = {
                         success: "ok"
                     };
                     responseData = JSON.stringify(responseData);
                     cb(res, responseData);
-                    console.log("User " + data.user.firstName +  " " + data.user.lastName + " has submitted a workorder.");
+                    console.log("User " + data.user.name + " has submitted a workorder.");
                 }
                 transporter.close();
             })
@@ -91,7 +92,7 @@ exports.userSendMail = function(data, res, cb) {
 
 // admin mails vendor after assigning him a job
 exports.adminSendMail = function(data, cb) {
-
+    console.log(data);
     const email = process.env.ADMIN_EMAIL;
     const emailPassword = process.env.ADMIN_EMAIL_PASSWORD;
     const emailHost = process.env.ADMIN_EMAIL_HOST;
@@ -131,10 +132,11 @@ exports.adminSendMail = function(data, cb) {
             responseData = {
                 error: "An error has occured while attempting to send email from admin to vendor"
             }
-            console.log("An error occurred : " + err);
+            console.log("An error1 occurred");
+            console.log(err);
         } else {
             responseData = data;
-            console.log("Everything is ok : " + info);
+            console.log("Admin submitted assigned a new job for vendor " + data.vendor.name);
         }
         cb(responseData);
         transporter.close();
