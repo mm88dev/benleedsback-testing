@@ -99,7 +99,7 @@ module.exports.updateTempWorkorder = function (autosavedWorkorder, res, callback
 };
 
 // user gets his/hers autosaved workorder for that building
-module.exports.getTempWorkorder = function (autosavedWorkorder, callback) {
+module.exports.getTempWorkorder = function (autosavedWorkorder, res, callback) {
     
     tempWorkorder.findOne({
         buildingNumber: autosavedWorkorder.buildingNumber,
@@ -116,7 +116,7 @@ module.exports.getTempWorkorder = function (autosavedWorkorder, callback) {
                 error: "An error occured while recovering a temporary workorder"
             };
         }
-        callback(data);
+        callback(res, data);
     })
     .catch(err => {
 

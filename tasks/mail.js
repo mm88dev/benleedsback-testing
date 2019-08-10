@@ -127,7 +127,7 @@ exports.adminSendMail = function(data, cb) {
     let responseData;
     // trigger mail sending
     transporter.sendMail(mailOptions, function(err, info) {
-
+        console.log(info);
         if (err) {
             responseData = {
                 error: "An error has occured while attempting to send email from admin to vendor"
@@ -136,7 +136,7 @@ exports.adminSendMail = function(data, cb) {
             console.log(err);
         } else {
             responseData = data;
-            console.log("Admin submitted assigned a new job for vendor " + data.vendor.name);
+            console.log("Admin assigned a new job for vendor " + data.vendor.name);
         }
         cb(responseData);
         transporter.close();

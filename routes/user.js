@@ -118,19 +118,19 @@ module.exports.getTempWorkorder = function (req, res) {
     }
     const TempWorkorder = require("../db/models/tempWorkorder");
     // callback
-    TempWorkorder.getTempWorkorder(tempWorkorderData, getItems);
-    const Item = require("../db/models/item");
+    TempWorkorder.getTempWorkorder(tempWorkorderData, res, callback);
+    // const Item = require("../db/models/item");
 
-    function getItems(data) {
+    // function getItems(data) {
        
-        if (data.error === undefined) {
-            // second callback
-            Item.getAutosaveItems(data, res, callback);
-        } else {
-            data = JSON.stringify(data);
-            callback(res, data);
-        }
-    }
+    //     if (data.error === undefined) {
+    //         // second callback
+    //         Item.getAutosaveItems(data, res, callback);
+    //     } else {
+    //         data = JSON.stringify(data);
+    //         callback(res, data);
+    //     }
+    // }
 };
 
 // user gets all of his/hers temporary workorders
