@@ -230,7 +230,7 @@ module.exports.finishJob = function(jobData, res, callback) {
     Job.findByIdAndUpdate(jobData._id, {
         $set: {
             status: jobData.status,
-            finishDate: jobData.finishDate
+            finishedDate: jobData.finishedDate
         }
     }, {
         new: true
