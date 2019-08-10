@@ -298,7 +298,7 @@ exports.finishJob = function(req, res) {
   const jobData = {
     _id: req.params.id,
     status: req.body.status,
-    endDate: req.body.endDate
+    finishedDate: req.body.finishedDate
   };
   const Job = require('../db/models/job');
   Job.finishJob(jobData, res, callback);

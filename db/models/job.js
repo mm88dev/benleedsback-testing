@@ -48,7 +48,7 @@ const JobSchema = mongoose.Schema({
     endDate: {
         type: Date
     },
-    finishDate: {
+    finishedDate: {
         type: Date
     }
 });
@@ -200,7 +200,8 @@ module.exports.assignJob = function(jobData, callback) {
         $set : {
             vendorId: jobData.job.vendorId,
             status: jobData.job.status,
-            assignmentDate: jobData.job.assignmentDate
+            assignmentDate: jobData.job.assignmentDate,
+            endDate: jobData.job.endDate
         }
     },{
         new: true
