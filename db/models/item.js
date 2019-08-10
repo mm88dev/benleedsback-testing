@@ -388,7 +388,7 @@ module.exports.editItem = async function (item, res, callback) {
 };
 
 // user gets items from the jobs of the autosaved workorder
-module.exports.getAutosaveItems = async function (autosavedWorkorder, callback) {
+module.exports.getAutosaveItems = function(autosavedWorkorder, res, callback) {
     
     Item.find()
     .then(items => {
@@ -434,7 +434,7 @@ module.exports.getAutosaveItems = async function (autosavedWorkorder, callback) 
                 error: "An error occurred while getting the items per autosave"
             };
         }
-        callback(data);
+        callback(res, data);
     })
     .catch(err => {
 
