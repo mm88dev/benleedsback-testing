@@ -33,7 +33,7 @@ const Item = module.exports = mongoose.model("item", ItemSchema);
 
 
 // send all the items when app initializes
-module.exports.getAllItems = function (callback) {
+module.exports.getAllItems = function(res, callback) {
 
     Item.find({})
     .then(items => {
@@ -48,7 +48,7 @@ module.exports.getAllItems = function (callback) {
                 error: "Could not get items"
             };
         }
-        callback(data);
+        callback(res, data);
     })
     .catch(err => {
 
