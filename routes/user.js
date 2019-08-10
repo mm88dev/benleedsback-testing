@@ -51,6 +51,7 @@ exports.createWorkorder = function (req, res) {
     for (let prop in req.body) {
         createdWorkorder = JSON.parse(prop);
     }
+    console.log(createdWorkorder);
     const Workorder = require("../db/models/workorder");
     // callback
     Workorder.createWorkorder(createdWorkorder, createJobs);
@@ -121,22 +122,14 @@ module.exports.getTempWorkorder = function (req, res) {
 
     function getItems(data) {
 
-        if (data.error === undefined) {
+        if (data.error === undefined && data.getItems === true) {
             // second callback
             Item.getAutosaveItems(data, reduceItems);
         } else {
             // second callback
-            Item.getAllItems(reduceItems);
+            data = JSON.stringify(data);
+            callback(res, data);
         }
-    }
-
-    function reduceItems(data) {
-
-        if (data.error === undefined) {
-            // limit the items only to those from the same room
-        }
-        data = JSON.stringify(data);
-        callback(res, data);
     }
 };
 

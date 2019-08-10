@@ -111,12 +111,12 @@ module.exports.getTempWorkorder = function (autosavedWorkorder, callback) {
         let data;
         if (tempWorkorder !== null) {
             data = tempWorkorder;
+            data.getItems = Boolean(autosavedWorkorder.getItems);
         } else {
             data = {
                 error: "An error occured while recovering a temporary workorder"
             };
         }
-        console.log(tempWorkorder);
         callback(data);
     })
     .catch(err => {

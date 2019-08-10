@@ -74,7 +74,7 @@ app.get('/', require('./routes/index').getOperationalData);
 // login
 app.post('/login', require('./routes/index').login);
 // send user photo
-app.get('/avatar/:userId', require('./routes/index').userPhoto);
+// app.get('/avatar/:userId', require('./routes/index').userPhoto);
 
 // user gets one instance of data
 app.get('/user/rooms/:name', require('./routes/user').singleRoom);
