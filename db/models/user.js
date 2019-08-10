@@ -1,44 +1,42 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
-const bcryptjs = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
 // create user Schema
 const UserSchema = mongoose.Schema({
-
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        bcrypt: true,
-        required: true
-    },
-    emailPassword: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    region: {
-        type: String,
-        required: true
-    },
-    status: {
-        type: String,
-        required: true,
-        default: "active"
-    },
-    imgPath: {
-        type: String,
-        required: true,
-        default: "noImg.jpg"
-    }
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    bcrypt: true,
+    required: true
+  },
+  emailPassword: {
+    type: String
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  region: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true,
+    default: 'active'
+  },
+  imgPath: {
+    type: String,
+    required: true,
+    default: 'noImg.jpg'
+  }
 });
 // export User constructor
-const User = (module.exports = mongoose.model("user", UserSchema));
+const User = (module.exports = mongoose.model('user', UserSchema));
 
 // user login
 module.exports.userLogin = function(email, password, callback) {
@@ -51,7 +49,7 @@ module.exports.userLogin = function(email, password, callback) {
       if (user === null) {
         // email address not found in database
         data = {
-          error: "no email"
+          error: 'no email'
         };
         callback(data);
       } else {
@@ -62,7 +60,7 @@ module.exports.userLogin = function(email, password, callback) {
             data = user;
           } else {
             data = {
-              error: "bad password"
+              error: 'bad password'
             };
           }
           callback(data);
@@ -70,7 +68,7 @@ module.exports.userLogin = function(email, password, callback) {
       }
     })
     .catch(err => {
-      console.log("Error occured while searching for user : " + err);
+      console.log('Error occured while searching for user : ' + err);
     });
 };
 
@@ -83,14 +81,14 @@ module.exports.getAllUsers = function(res, callback) {
         data = users;
       } else {
         data = {
-          error: "Could not get users"
+          error: 'Could not get users'
         };
       }
       data = JSON.stringify(data);
       callback(res, data);
     })
     .catch(err => {
-      console.log("Error while getting users : " + err);
+      console.log('Error while getting users : ' + err);
     });
 };
 // admin gets a single user
@@ -102,13 +100,13 @@ module.exports.getSingleUser = function(_id, callback) {
         data = user;
       } else {
         data = {
-          error: "No user with that id exists"
+          error: 'No user with that id exists'
         };
       }
       callback(data);
     })
     .catch(err => {
-      console.log("Error while getting specific user : " + err);
+      console.log('Error while getting specific user : ' + err);
     });
 };
 
@@ -121,7 +119,7 @@ module.exports.createUser = function(user, res, callback) {
     .then(userData => {
       if (userData !== null) {
         let data = {
-          error: "That email already exists"
+          error: 'That email already exists'
         };
         data = JSON.stringify(data);
         callback(res, data);
@@ -142,11 +140,11 @@ module.exports.createUser = function(user, res, callback) {
                     let data;
                     if (user !== null) {
                       data = {
-                        success: "Ok"
+                        success: 'Ok'
                       };
                     } else {
                       data = {
-                        error: "Unsuccessfull attempt to insert a new user"
+                        error: 'Unsuccessfull attempt to insert a new user'
                       };
                     }
                     data = JSON.stringify(data);
@@ -154,7 +152,7 @@ module.exports.createUser = function(user, res, callback) {
                   })
                   .catch(err => {
                     console.log(
-                      "An error occured while trying to register a new user, during insertion into database " +
+                      'An error occured while trying to register a new user, during insertion into database ' +
                         err
                     );
                   });
@@ -166,7 +164,8 @@ module.exports.createUser = function(user, res, callback) {
     })
     .catch(err => {
       console.log(
-        "An error occured while trying to register a new user during check if email exists " + err
+        'An error occured while trying to register a new user during check if email exists ' +
+          err
       );
     });
 };
@@ -180,24 +179,23 @@ module.exports.deleteUser = function(_id, res, callback) {
       let data;
       if (result !== null) {
         data = {
-          success: "Ok"
+          success: 'Ok'
         };
       } else {
         data = {
-          error: "An error occured while trying to delete an user"
+          error: 'An error occured while trying to delete an user'
         };
       }
       data = JSON.stringify(data);
       callback(res, data);
     })
     .catch(err => {
-      console.log("An error occured while deleting specific user : " + err);
+      console.log('An error occured while deleting specific user : ' + err);
     });
 };
 
 // admin edits existing user
 module.exports.editUser = function(updatedUser, res, callback) {
-
   let editedUser;
   if (updatedUser.imgPath !== null) {
     editedUser = updatedUser;
@@ -208,7 +206,7 @@ module.exports.editUser = function(updatedUser, res, callback) {
       email: updatedUser.email,
       emailPassword: updatedUser.emailPassword,
       region: updatedUser.region,
-      status: updatedUser.status,
+      status: updatedUser.status
     };
   }
   User.findByIdAndUpdate(
@@ -220,30 +218,27 @@ module.exports.editUser = function(updatedUser, res, callback) {
       new: true
     }
   )
-  .then(user => {
-      
-    let data;
-    if (user !== null) {
-      data = {
-        success: "Ok"
-      };
-    } else {
-      data = {
-        error: "An error occured while updating a user"
-      };
-    }
-    data = JSON.stringify(data);
-    callback(res, data);
-  })
-  .catch(err => {
-
-    console.log("An error occured while updating a user " + err);
-  });
+    .then(user => {
+      let data;
+      if (user !== null) {
+        data = {
+          success: 'Ok'
+        };
+      } else {
+        data = {
+          error: 'An error occured while updating a user'
+        };
+      }
+      data = JSON.stringify(data);
+      callback(res, data);
+    })
+    .catch(err => {
+      console.log('An error occured while updating a user ' + err);
+    });
 };
 
 // add relevant user to each workorder send to front
 module.exports.addUserToWorkorder = function(workorders, res, callback) {
-  
   User.find({})
     .then(users => {
       let data;
@@ -277,13 +272,13 @@ module.exports.addUserToWorkorder = function(workorders, res, callback) {
       } else {
         data = {
           workorders: workorders,
-          error: "An error occured trying to get users data"
+          error: 'An error occured trying to get users data'
         };
       }
       data = JSON.stringify(data);
       callback(res, data);
     })
     .catch(err => {
-      console.log("An error occured while adding user ");
+      console.log('An error occured while adding user ');
     });
 };
