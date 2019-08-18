@@ -187,7 +187,8 @@ exports.editWorkorder = function(req, res) {
     userId: req.body.userId,
     status: req.body.status,
     totalPrice: req.body.totalPrice,
-    adress: req.body.adress
+    adress: req.body.adress,
+    questions: req.body.questions
   };
   const Workorder = require('../db/models/workorder');
   Workorder.editWorkorder(editedWorkorder, res, callback);

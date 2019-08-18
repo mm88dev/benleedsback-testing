@@ -108,22 +108,11 @@ module.exports.getTempWorkorder = function(req, res) {
   const TempWorkorder = require("../db/models/tempWorkorder");
   // callback
   TempWorkorder.getTempWorkorder(tempWorkorderData, res, callback);
-  // const Item = require("../db/models/item");
-
-  // function getItems(data) {
-
-  //     if (data.error === undefined) {
-  //         // second callback
-  //         Item.getAutosaveItems(data, res, callback);
-  //     } else {
-  //         data = JSON.stringify(data);
-  //         callback(res, data);
-  //     }
-  // }
 };
 
 // user gets all of his/hers temporary workorders
 module.exports.getAllTempWorkorders = function(req, res) {
+  
   const userId = req.params.userId;
   const TempWorkorder = require("../db/models/tempWorkorder");
   TempWorkorder.getUserTempWorkorders(userId, res, callback);
@@ -131,6 +120,7 @@ module.exports.getAllTempWorkorders = function(req, res) {
 
 // user gets all of his/hers workorders
 module.exports.getAllUserWorkorders = function(req, res) {
+
   const userId = req.params.userId;
   const Workorder = require("../db/models/workorder");
   Workorder.getAllRegionalWorkorders(userId, res, callback);

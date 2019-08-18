@@ -154,6 +154,7 @@ module.exports.getWorkorderJobs = async function(workorder, res, callback, login
                 userId: workorderJobs.workorder.userId,
                 totalPrice: workorderJobs.workorder.totalPrice,
                 adress: workorderJobs.workorder.adress,
+                questions: workorderJobs.workorder.questions,
                 jobs: workorderJobs.jobs
             }); 
         }

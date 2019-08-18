@@ -265,6 +265,7 @@ module.exports.addUserToWorkorder = function(workorders, res, callback) {
             adress: workorders[i].adress,
             totalPrice: workorders[i].totalPrice,
             level: workorders[i].level,
+            questions: workorders[i].questions,
             user: workorderUser
           });
         }

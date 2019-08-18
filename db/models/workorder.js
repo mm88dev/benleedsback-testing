@@ -50,7 +50,10 @@ const workorderSchema = mongoose.Schema({
     },
     level: {
         type: String
-    }
+    },
+    questions: {
+        type: Object
+    } 
 });
 // export Workorder constructor 
 const Workorder = module.exports = mongoose.model("workorder", workorderSchema);
@@ -238,39 +241,6 @@ module.exports.editWorkorder = function (jobData, res, callback) {
     .catch(err => {
 
         console.log("An error occured while updating a workorder " + err);
-    });
-};
-
-// user updates an existing workorder
-module.exports.updateWorkorder = function (workorderData, callback) {
-
-    Workorder.findByIdAndUpdate(workorderData.workorder._id, {
-        $set: {
-            status: workorderData.workorder.status,
-            loginTime: workorderData.workorder.loginTime,
-            completedTime: workorderData.workorder.completedTime,
-            sendTime: workorderData.workorder.sendTime,
-            comment: workorderData.workorder.comment,
-            totalPrice: workorderData.workorder.totalPrice,
-        }
-    }, {
-        new: true
-    })
-    .then(workorder => {
-            
-        let data;
-        if (workorder !== null) {
-            data = workorderData;
-        } else {
-            data = {
-                error: "An error occurred while updating a saved workorder"
-            };
-        }
-        callback(data);
-    })
-    .catch(err => {
-            
-        console.log("An error occurred while updating a saved workorder " + err);
     });
 };
 
