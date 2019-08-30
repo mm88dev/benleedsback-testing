@@ -93,7 +93,7 @@ module.exports.getAllWorkordersUser = function (res, callback) {
                 error: "Could not get workorders"
             };
         }
-    callback(res, data);
+        callback(res, data);
     })
     .catch(err => {
         console.log("An error occurred while getting workorders : " + err);

@@ -34,6 +34,9 @@ const tempWorkorderSchema = mongoose.Schema({
   },
   squareFeet: {
     type: String
+  },
+  questions: {
+    type: Array
   }
 });
 
