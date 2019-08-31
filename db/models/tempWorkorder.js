@@ -80,6 +80,7 @@ module.exports.updateTempWorkorder = function(
   res,
   callback
 ) {
+  console.log(autosavedWorkorder);
   tempWorkorder
     .findByIdAndUpdate(
       autosavedWorkorder._id,
@@ -134,6 +135,7 @@ module.exports.getTempWorkorder = function(autosavedWorkorder, res, callback) {
           error: "An error occured while recovering a temporary workorder"
         };
       }
+      console.log(data);
       data = JSON.stringify(data);
       callback(res, data);
     })
