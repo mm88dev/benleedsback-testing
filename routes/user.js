@@ -88,8 +88,8 @@ module.exports.newTempWorkorder = function(req, res) {
   for (let prop in req.body) {
     autosavedWorkorder = JSON.parse(prop);
   }
-  console.log(autosavedWorkorder);
   const TempWorkorder = require("../db/models/tempWorkorder");
+  console.log('before save/update', autosavedWorkorder);
   if (autosavedWorkorder._id === undefined) {
     // second callback
     TempWorkorder.saveTempWorkorder(autosavedWorkorder, res, callback);

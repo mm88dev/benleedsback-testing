@@ -36,10 +36,10 @@ const tempWorkorderSchema = mongoose.Schema({
     type: String
   },
   questions: {
-    type: Array
+    type: Object
   },
   checkedQuestions: {
-    type: Array
+    type: Object
   }
 });
 
@@ -49,7 +49,8 @@ const tempWorkorder = (module.exports = mongoose.model(
 ));
 
 // user creates temporary workorder
-module.exports.saveTempWorkorder = function(autosavedWorkorder, res, callback) {
+module.exports.saveTempWorkorder = function (autosavedWorkorder, res, callback) {
+ 
   const newTempWorkorder = new tempWorkorder(autosavedWorkorder);
   newTempWorkorder
     .save()
@@ -64,6 +65,7 @@ module.exports.saveTempWorkorder = function(autosavedWorkorder, res, callback) {
           error: "An error has occurred while trying to autosave a workorder"
         };
       }
+      console.log('after save', tempWorkorder);
       data = JSON.stringify(data);
       callback(res, data);
     })
@@ -75,21 +77,21 @@ module.exports.saveTempWorkorder = function(autosavedWorkorder, res, callback) {
 };
 
 // user updates existing temporary workorder
-module.exports.updateTempWorkorder = function(
+module.exports.updateTempWorkorder = function (
   autosavedWorkorder,
   res,
   callback
 ) {
   tempWorkorder
     .findByIdAndUpdate(
-      autosavedWorkorder._id,
-      {
+      autosavedWorkorder._id, {
         $set: {
           autosaveTime: autosavedWorkorder.autosaveTime,
-          jobs: autosavedWorkorder.jobs
+          jobs: autosavedWorkorder.jobs,
+          questions: autosavedWorkorder.questions,
+          checkedQuestions: autosavedWorkorder.checkedQuestions
         }
-      },
-      {
+      }, {
         new: true
       }
     )
@@ -101,24 +103,24 @@ module.exports.updateTempWorkorder = function(
         };
       } else {
         data = {
-          error:
-            "An error has occurred while trying to update an autosaved workorder"
+          error: "An error has occurred while trying to update an autosaved workorder"
         };
       }
+      console.log('after update', tempWorkorder);
       data = JSON.stringify(data);
       callback(res, data);
     })
     .catch(err => {
       console.log(
         "An error has occurred while trying tupdate an autosaved workorder " +
-          err
+        err
       );
     });
 };
 
 // user gets his/hers autosaved workorder for that building
-module.exports.getTempWorkorder = function(autosavedWorkorder, res, callback) {
-  console.log(autosavedWorkorder);
+module.exports.getTempWorkorder = function (autosavedWorkorder, res, callback) {
+  
   tempWorkorder
     .findOne({
       buildingNumber: autosavedWorkorder.buildingNumber,
@@ -134,6 +136,7 @@ module.exports.getTempWorkorder = function(autosavedWorkorder, res, callback) {
           error: "An error occured while recovering a temporary workorder"
         };
       }
+      console.log('get sent', data);
       data = JSON.stringify(data);
       callback(res, data);
     })
@@ -145,7 +148,7 @@ module.exports.getTempWorkorder = function(autosavedWorkorder, res, callback) {
 };
 
 // a temporary workorder is deleted once the real one is created
-module.exports.deleteTempWorkorder = function(workorderData, callback) {
+module.exports.deleteTempWorkorder = function (workorderData, callback) {
   tempWorkorder
     .findByIdAndRemove(workorderData.tempWorkorderId)
     .then(tempWorkorder => {
@@ -167,7 +170,7 @@ module.exports.deleteTempWorkorder = function(workorderData, callback) {
 };
 
 // user get all of his/hers temporary workorders during login
-module.exports.getUserTempWorkordersLogin = function(userData, res, callback) {
+module.exports.getUserTempWorkordersLogin = function (userData, res, callback) {
   tempWorkorder
     .find({
       userId: mongoose.Types.ObjectId(userData.user._id)
@@ -193,13 +196,13 @@ module.exports.getUserTempWorkordersLogin = function(userData, res, callback) {
     .catch(err => {
       console.log(
         "An error has occurred while recovering user's temporary workorders " +
-          err
+        err
       );
     });
 };
 
 // user get all of his/hers temporary workorders
-module.exports.getUserTempWorkorders = function(userId, res, callback) {
+module.exports.getUserTempWorkorders = function (userId, res, callback) {
   tempWorkorder
     .find({
       userId: mongoose.Types.ObjectId(userId)
@@ -210,8 +213,7 @@ module.exports.getUserTempWorkorders = function(userId, res, callback) {
         data = tempWorkorders;
       } else {
         data = {
-          error:
-            "An error has occured while recovering user's temporary workorders"
+          error: "An error has occured while recovering user's temporary workorders"
         };
       }
       data = JSON.stringify(data);
@@ -220,7 +222,7 @@ module.exports.getUserTempWorkorders = function(userId, res, callback) {
     .catch(err => {
       console.log(
         "An error has occured while recovering user's temporary workorders " +
-          err
+        err
       );
     });
 };
