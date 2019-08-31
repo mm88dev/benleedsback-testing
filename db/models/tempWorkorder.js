@@ -36,10 +36,10 @@ const tempWorkorderSchema = mongoose.Schema({
     type: String
   },
   questions: {
-    type: Array
+    type: Object
   },
   checkedQuestions: {
-    type: Array
+    type: Object
   }
 });
 
