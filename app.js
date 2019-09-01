@@ -12,7 +12,6 @@ require('./db/connection');
 // express
 const app = express();
 
-
 // MIDDLEWARES
 
 // multer
