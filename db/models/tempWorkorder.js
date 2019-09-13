@@ -40,6 +40,12 @@ const tempWorkorderSchema = mongoose.Schema({
   },
   checkedQuestions: {
     type: Object
+  },
+  level: {
+    type: String
+  },
+  toDo: {
+    type: String
   }
 });
 
@@ -89,7 +95,9 @@ module.exports.updateTempWorkorder = function (
           autosaveTime: autosavedWorkorder.autosaveTime,
           jobs: autosavedWorkorder.jobs,
           questions: autosavedWorkorder.questions,
-          checkedQuestions: autosavedWorkorder.checkedQuestions
+          checkedQuestions: autosavedWorkorder.checkedQuestions,
+          toDo: autosavedWorkorder.toDo,
+          level: autosavedWorkorder.level
         }
       }, {
         new: true

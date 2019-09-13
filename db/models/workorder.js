@@ -51,6 +51,9 @@ const workorderSchema = mongoose.Schema({
     level: {
         type: String
     },
+    toDo: {
+        type: String
+    },
     questions: {
         type: Object
     } 
